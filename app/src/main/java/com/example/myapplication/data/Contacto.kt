@@ -1,3 +1,5 @@
+package com.example.myapplication.data
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,6 +10,6 @@ data class Contacto(
     val telefone: String,
     val email: String,
     val endereco: String,
-    val latitude: Double?,  // Para capturar a localização associada ao contacto
+    val latitude: Double?,
     val longitude: Double?
 )

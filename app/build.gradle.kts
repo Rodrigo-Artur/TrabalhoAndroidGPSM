@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
 }
 
 android {
@@ -58,7 +59,7 @@ dependencies {
     // Room (Base de Dados para o CRUD)
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1") // Requer o plugin KSP
+    kapt("androidx.room:room-compiler:2.6.1") // Requer o plugin KSP
     // Google Maps e Localização
     implementation("com.google.maps.android:maps-compose:4.3.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
