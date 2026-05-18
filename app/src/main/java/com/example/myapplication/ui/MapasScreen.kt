@@ -49,12 +49,22 @@ fun MapaScreen(contactos: List<Contacto>) {
             // Percorre os seus contactos e adiciona um pino para cada um
             contactos.forEach { contacto ->
                 if (contacto.latitude != null && contacto.longitude != null) {
-                    val marker = Marker(mapView)
-                    marker.position = GeoPoint(contacto.latitude, contacto.longitude)
-                    marker.title = contacto.nome
-                    marker.snippet = "Tel: ${contacto.telefone}"
-                    
-                    // Adiciona o pino ao mapa
+                val marker = Marker(mapView)
+                marker.position = GeoPoint(contacto.latitude, contacto.longitude)
+                marker.title = contacto.nome
+                marker.snippet = "Tel: ${contacto.telefone}\nClique para traçar rota"
+        
+                    // Adiciona evento de clique no pino para abrir a rota
+                    marker.setOnMarkerClickListener { _, _ ->
+                        // Usa a nossa função já criada no MapUtils para abrir o GPS de navegação do celular
+                        com.example.myapplication.utils.MapUtils.abrirRotaNoGoogleMaps(
+                            context, 
+                            contacto.latitude, 
+                            contacto.longitude
+                        )
+                        true
+                    }
+        
                     mapView.overlays.add(marker)
                 }
             }
