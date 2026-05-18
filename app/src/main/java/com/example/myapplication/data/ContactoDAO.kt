@@ -5,11 +5,12 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ContactoDao {
+    
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun inserirContacto(contacto: Contacto)
+    suspend fun inserirContacto(contacto: Contacto): Long // <-- Adicione ": Long" aqui
 
     @Delete
-    suspend fun excluirContacto(contacto: Contacto)
+    suspend fun excluirContacto(contacto: Contacto): Int // <-- Adicione ": Int" aqui
 
     @Query("SELECT * FROM contactos ORDER BY nome ASC")
     fun listarContactos(): Flow<List<Contacto>>
