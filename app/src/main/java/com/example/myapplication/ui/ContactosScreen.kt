@@ -13,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.data.Contacto
 import com.example.myapplication.data.ContactoDao
 import kotlinx.coroutines.launch
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,12 +94,40 @@ fun AdicionarContactoDialog(onDismiss: () -> Unit, onSave: (Contacto) -> Unit) {
     var nome by remember { mutableStateOf("") }
     var telefone by remember { mutableStateOf("") }
     var endereco by remember { mutableStateOf("") }
-    var latitude by remember { mutableStateOf("") }
-    var longitude by remember { mutableStateOf("") }
+    // Mudamos os nomes destas variáveis para evitar confusão de texto vs números decimais
+    var latStr by remember { mutableStateOf("") }
+    var lngStr by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text("Novo Contacto") },
         text = {
             Column {
-                OutlinedTextField(value = nome, onValueChange = { nome = it },
+                OutlinedTextField(value = nome, onValueChange = { nome = it }, label = { Text("Nome") })
+                OutlinedTextField(value = telefone, onValueChange = { telefone = it }, label = { Text("Telefone") })
+                OutlinedTextField(value = endereco, onValueChange = { endereco = it }, label = { Text("Endereço") })
+                OutlinedTextField(value = latStr, onValueChange = { latStr = it }, label = { Text("Latitude (Opcional)") })
+                OutlinedTextField(value = lngStr, onValueChange = { lngStr = it }, label = { Text("Longitude (Opcional)") })
+            }
+        },
+        confirmButton = {
+            Button(onClick = {
+                // Convertemos o texto para número decimal de forma segura antes de guardar
+                val latitudeDecimal = latStr.toDoubleOrNull()
+                val longitudeDecimal = lngStr.toDoubleOrNull()
+                
+                onSave(Contacto(
+                    nome = nome, 
+                    telefone = telefone, 
+                    email = "", 
+                    endereco = endereco,
+                    latitude = latitudeDecimal,
+                    longitude = longitudeDecimal
+                ))
+            }) { Text("Guardar") }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text("Cancelar") }
+        }
+    )
+}

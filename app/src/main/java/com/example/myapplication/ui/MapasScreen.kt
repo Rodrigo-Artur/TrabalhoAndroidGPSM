@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import com.example.myapplication.data.Contacto
 import com.example.myapplication.utils.MapUtils
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun MapaScreen(contactos: List<Contacto>) {
