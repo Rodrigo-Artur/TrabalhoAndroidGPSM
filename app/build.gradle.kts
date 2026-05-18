@@ -64,7 +64,7 @@ dependencies {
 
     // Google Maps e Localização
     implementation("com.google.maps.android:maps-compose:4.3.0")
-    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
     implementation("com.google.android.gms:play-services-location:21.1.0")
 
     // Navegação e Ícones (As que estavam a faltar!)
