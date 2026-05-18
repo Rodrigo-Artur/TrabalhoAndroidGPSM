@@ -16,6 +16,9 @@ import com.example.myapplication.data.AppDatabase
 import com.example.myapplication.ui.ContactosScreen
 import com.example.myapplication.ui.MapaScreen
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
 

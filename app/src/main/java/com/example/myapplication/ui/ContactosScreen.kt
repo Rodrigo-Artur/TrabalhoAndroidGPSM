@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.data.Contacto
 import com.example.myapplication.data.ContactoDao
 import kotlinx.coroutines.launch
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,12 +76,15 @@ fun ContactosScreen(
         }
     }
 
-    if (mostrarDialog) {
+   if (mostrarDialog) {
         AdicionarContactoDialog(
             onDismiss = { mostrarDialog = false },
             onSave = { novoContacto ->
                 coroutineScope.launch {
-                    contactoDao.inserirContacto(novoContacto)
+                    // Executa a gravação numa thread de fundo (segurança máxima)
+                    withContext(Dispatchers.IO) {
+                        contactoDao.inserirContacto(novoContacto)
+                    }
                     mostrarDialog = false
                 }
             }
